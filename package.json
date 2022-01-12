@@ -1,0 +1,14 @@
+{
+  "name": "fetch-rewards-isaac-butterfield",
+  "version": "1.0.0",
+  "description": "Fetch Rewards Coding Exercise - Backend Software Engineering",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Isaac Butterfield",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
