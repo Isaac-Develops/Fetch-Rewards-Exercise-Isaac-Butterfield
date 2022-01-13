@@ -15,8 +15,8 @@ describe("Add Transaction Route Test", () => {
         console.log("Unit test for adding transactions to system")
     })
 
-    it("Is returning succesful transaction addition", () => {
-        fetch(baseURL + "add", {
+    it("Is returning succesful transaction addition", async () => {
+        response = await fetch(baseURL + "add", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -24,11 +24,13 @@ describe("Add Transaction Route Test", () => {
             "points": 1000,
             "timestamp": "2020-11-02T14:00:00Z"
         })
-        }).then((res) => res.json()).then((data) => assert.equal(data, JSON.stringify({
+        }).then((res) => response = res.json()).then((data) => JSON.stringify(data))
+
+        assert.equal(response, JSON.stringify({
             "payer": "DANNON",
             "points": 1000,
             "timestamp": "2020-11-02T14:00:00.000Z"
-        })))
+        }))
     })
 })
 
