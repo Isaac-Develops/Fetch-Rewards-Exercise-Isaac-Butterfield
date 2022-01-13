@@ -30,7 +30,7 @@ describe("Add Transaction Route Test", () => {
     })
 
     it("is returning status 400", async () => {
-        response = await fetch(baseURL + "add", {
+        response1 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -40,7 +40,27 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        assert.equal(response.status, 400)
+        response2 = await fetch(baseURL + "add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "payer": "DANNON"
+            })
+        })
+
+        response3 = await fetch(baseURL + "add", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "payer": "DANNON",
+                "points": "Wrong Type",
+                "timestamp": "No Proper Timestamp"
+            })
+        })
+
+        assert.equal(response1.status, 400)
+        assert.equal(response2.status, 400)
+        assert.equal(response3.status, 400)
     })
 })
 
