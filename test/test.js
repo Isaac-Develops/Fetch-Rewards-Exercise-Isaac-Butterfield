@@ -1,4 +1,7 @@
-const assert = require('assert');
+const assert = require("assert")
+const fetch = require("node-fetch")
+
+baseURL = "http://localhost:3000/"
 
 describe("Transaction System Testing", () => {
     before(() => {
@@ -10,6 +13,22 @@ describe("Transaction System Testing", () => {
 describe("Add Transaction Route Test", () => {
     before(() => {
         console.log("Unit test for adding transactions to system")
+    })
+
+    it("Is returning succesful transaction addition", () => {
+        fetch(baseURL + "add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            "payer": "DANNON",
+            "points": 1000,
+            "timestamp": "2020-11-02T14:00:00Z"
+        })
+        }).then((res) => res.json()).then((data) => assert.equal(data, JSON.stringify({
+            "payer": "DANNON",
+            "points": 1000,
+            "timestamp": "2020-11-02T14:00:00.000Z"
+        })))
     })
 })
 
