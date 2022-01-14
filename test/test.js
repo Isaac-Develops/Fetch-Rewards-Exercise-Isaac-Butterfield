@@ -17,7 +17,7 @@ describe("Add Transaction Route Test", () => {
     })
 
     it("Is returning status 200", async () => {
-        response1 = await fetch(baseURL + "add", {
+        let response1 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -27,7 +27,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response2 = await fetch(baseURL + "add", {
+        let response2 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -37,7 +37,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response3 = await fetch(baseURL + "add", {
+        let response3 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -47,7 +47,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response4 = await fetch(baseURL + "add", {
+        let response4 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -57,7 +57,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response5 = await fetch(baseURL + "add", {
+        let response5 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -75,7 +75,7 @@ describe("Add Transaction Route Test", () => {
     })
 
     it("Is returning status 400", async () => {
-        response1 = await fetch(baseURL + "add", {
+        let response1 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -85,7 +85,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response2 = await fetch(baseURL + "add", {
+        let response2 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -93,7 +93,7 @@ describe("Add Transaction Route Test", () => {
             })
         })
 
-        response3 = await fetch(baseURL + "add", {
+        let response3 = await fetch(baseURL + "add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -116,19 +116,19 @@ describe("Spend Points Route Test", () => {
     })
 
     it("Is returning the spending of points in the correct order", async () => {
-        response = await fetch(baseURL + "spend", {
+        let response = await fetch(baseURL + "spend", {
             method: "PATCH",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 "points": 5000
             })
-        }).then((res) => res.json())
+        }).then((res) => res.json()).then((data) => JSON.stringify(data))
 
-        assert.equal(response, [
+        assert.equal(response, JSON.stringify([
             { "payer": "DANNON", "points": -100 },
             { "payer": "UNILEVER", "points": -200 },
             { "payer": "MILLER COORS", "points": -4700 }
-        ])
+        ]))
     })
 })
 
@@ -139,14 +139,12 @@ describe("Points Balance Route Test", () => {
     })
 
     it("Is returning the correct balance of each payer", async () => {
-        response = await fetch(baseURL + "balances", {
+        let response = await fetch(baseURL + "balances", {
             headers: { "Content-Type": "application/json" },
         }).then((res) => res.json())
 
-        assert.equal(response, {
-            "DANNON": 1000,
-            "UNILEVER": 0,
-            "MILLER COORS": 5300
-        })
+        assert.equal(response["DANNON"], 1000)
+        assert.equal(response["UNILEVER"], 0)
+        assert.equal(response["MILLER COORS"], 5300)
     })
 })
