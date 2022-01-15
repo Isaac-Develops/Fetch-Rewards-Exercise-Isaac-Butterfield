@@ -109,7 +109,7 @@ Make sure you have both npm and Node.js installed. You can check if both are ins
   npm -v
   ```
   
-If they aren't installed, please follow the instructions on the npm Docs: [NPM Docs](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+If they aren't installed, please follow the instructions on the [NPM Docs](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
 ### Installation
 
