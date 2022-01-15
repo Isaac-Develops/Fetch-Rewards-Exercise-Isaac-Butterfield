@@ -165,7 +165,7 @@ There are three provided routes available:
   - Method: GET
   - Description: Gets all payer point balances.
   
-For an example of how these routes work, suppose you call "/add" with the following sequence of calls:
+For an example, suppose you call "/add" with the following sequence of calls:
   
   ```sh
   { "payer": "DANNON", "points": 1000, "timestamp": "2020-11-02T14:00:00Z" }
