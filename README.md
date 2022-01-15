@@ -150,21 +150,18 @@ spent. There are two rules for determining what points to "spend" first:
   
 There are three provided routes available:
 
-  ```sh
-  /add
-  ```
+  `/add`
+  
   Method: POST
   Description: Adds a new transaction.
   
-  ```sh
-  /spend
-  ```
+  `/spend`
+  
   Method: PATCH
   Description: Spends points, starting with the oldest.
   
-  ```sh
-  /balances
-  ```
+  `/balances`
+  
   Method: GET
   Description: Gets all payer point balances.
   
