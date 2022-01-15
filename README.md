@@ -74,12 +74,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is a exercise to create a Points web service that provides routes that:
-1. Add transactions for a specific payer and date.
-2. Spend points using the rules below and return a list of { "payer": <string>, "points": <integer> } for each call.
+This is a exercise to create a Points Web Service that:
+1. Adds transactions for a specific payer and date.
+2. Spends points using the rules below and return a list of { "payer": <string>, "points": <integer> } for each call.
   Rule 1. Spend the oldest points first (oldest based on transaction timestamp, not the order they're received)
   Rule 2. None of the payer's points can go negative
-3. Return all payer point balances.
+3. Returns all payer point balances.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
