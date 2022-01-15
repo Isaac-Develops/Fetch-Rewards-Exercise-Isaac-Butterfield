@@ -152,18 +152,18 @@ There are three provided routes available:
 
   `/add`
   
-  Method: POST
-  Description: Adds a new transaction.
+  - Method: POST
+  - Description: Adds a new transaction.
   
   `/spend`
   
-  Method: PATCH
-  Description: Spends points, starting with the oldest.
+  - Method: PATCH
+  - Description: Spends points, starting with the oldest.
   
   `/balances`
   
-  Method: GET
-  Description: Gets all payer point balances.
+  - Method: GET
+  - Description: Gets all payer point balances.
   
 For an example of how these routes work, suppose you call "/add" with the following sequence of calls:
   
