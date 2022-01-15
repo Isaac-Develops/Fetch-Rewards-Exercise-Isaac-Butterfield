@@ -3,7 +3,7 @@ const { isString } = require('mocha/lib/utils')
 const app = express()
 const port = 3000
 
-// Middleware
+// Express Middleware
 app.use(express.json())
 
 // Mock database (array of objects)
@@ -37,8 +37,9 @@ function getBalancesSum() {
   return sum
 }
 
+// Root Route
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send("Hello There! Please use the provided routes:<br><br>'/add': Add a new transaction<br>'/spend': Spend points<br>'/balances': Get all payer point balances")
 })
 
 // Add Transaction Route
@@ -90,23 +91,22 @@ app.post("/add", (req, res) => {
   }
 })
 
-// Balances route
-app.get("/balances", (req, res) => {
-  res.json(getBalances())
-  res.sendStatus(200)
-})
-
 // Spend Points Route
 app.patch("/spend", (req, res) => {
+
+  // Check for basic problems with request
   if (
     req.body.points &&
     typeof req.body.points == "number" &&
     req.body.points % 1 == 0
     ) {
+
+      // Check if there's enough points to spend
       if (req.body.points <= getBalancesSum()) {
         let pointsToSpend = req.body.points
         let transactionsByDate = []
 
+        // Copy objects in DB and sort by date
         for (let i = 0; i < db.length; i++) {
           let transaction = db[i];
 
@@ -115,7 +115,7 @@ app.patch("/spend", (req, res) => {
 
         transactionsByDate.sort((a, b) => a.timestamp - b.timestamp)
 
-        // Sort the points from oldest to newest
+        // Sort points in DB from oldest to newest
         let sortedPoints = []
         for (let i = 0; i < transactionsByDate.length; i++) {
           const transaction = transactionsByDate[i]
@@ -128,9 +128,10 @@ app.patch("/spend", (req, res) => {
           }
         }
 
-        let spentPayerPoints = []
+        // Array of points spent by payer
+        let pointsSpent = []
 
-        // Spend points until pointsToSpend is at 0
+        // Spend points until there is no more pointsToSpend
         let i = -1
         while (pointsToSpend != 0) {
           i++
@@ -141,21 +142,24 @@ app.patch("/spend", (req, res) => {
           if (transaction.points <= 0 || balances[transaction.payer] <= 0) {
             continue
           } else {
+
             let newTransaction = {
               payer: transaction.payer,
               points: 0,
               timestamp: new Date(),
             }
-            if (spentPayerPoints.some((spentPoints) => spentPoints.payer == transaction.payer)) {
-              index = spentPayerPoints.findIndex((spentPoints) => spentPoints.payer == transaction.payer)
+
+            // Check if payer has already spent points
+            if (pointsSpent.some((spentPoints) => spentPoints.payer == transaction.payer)) {
+              index = pointsSpent.findIndex((spentPoints) => spentPoints.payer == transaction.payer)
 
               if (transaction.points > maxPoints) {
-                spentPayerPoints[index].points += -maxPoints
+                pointsSpent[index].points += -maxPoints
                 pointsToSpend += -maxPoints
 
                 newTransaction["points"] += -maxPoints
               } else {
-                spentPayerPoints[index].points += -transaction.points
+                pointsSpent[index].points += -transaction.points
                 pointsToSpend += -transaction.points
 
                 newTransaction["points"] += -transaction.points
@@ -163,12 +167,12 @@ app.patch("/spend", (req, res) => {
             } else {
 
               if (transaction.points > maxPoints) {
-                spentPayerPoints.push({"payer": transaction.payer, "points": -maxPoints})
+                pointsSpent.push({"payer": transaction.payer, "points": -maxPoints})
                 pointsToSpend += -maxPoints
 
                 newTransaction["points"] += -maxPoints
               } else {
-                spentPayerPoints.push({"payer": transaction.payer, "points": -transaction.points})
+                pointsSpent.push({"payer": transaction.payer, "points": -transaction.points})
                 pointsToSpend += -transaction.points
 
                 newTransaction["points"] += -transaction.points
@@ -178,7 +182,7 @@ app.patch("/spend", (req, res) => {
           }
         }
 
-        res.json(spentPayerPoints)
+        res.json(pointsSpent)
         res.sendStatus(200)
       } else {
         res.status(400).send("Bad request. Not enough points to spend.")
@@ -189,6 +193,12 @@ app.patch("/spend", (req, res) => {
     }
 })
 
+// Balances route
+app.get("/balances", (req, res) => {
+  res.json(getBalances())
+  res.sendStatus(200)
+})
+
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Points system listening at http://localhost:${port}`)
 })

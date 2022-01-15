@@ -130,6 +130,42 @@ describe("Spend Points Route Test", () => {
             { "payer": "MILLER COORS", "points": -4700 }
         ]))
     })
+
+    it("Is returning status 400", async () => {
+        let response1 = await fetch(baseURL + "spend", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({})
+        })
+
+        let response2 = await fetch(baseURL + "spend", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "points": 51.5
+            })
+        })
+
+        let response3 = await fetch(baseURL + "spend", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "points": "Wrong Type"
+            })
+        })
+
+        let response4 = await fetch(baseURL + "spend", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                "points": 1000000
+            })
+        })
+
+        assert.equal(response1.status, 400)
+        assert.equal(response2.status, 400)
+        assert.equal(response3.status, 400)
+    })
 })
 
 // Points Balance Route
