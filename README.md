@@ -29,7 +29,7 @@
 <h3 align="center">Points Web Service</h3>
 
   <p align="center">
-    A Points Web System that allows you to store transactions, keep track of each payer balance, and spend those points.
+    A Points Web Service API that allows you to store transactions, keep track of each payer balance, and spend those points.
     <br />
     <a href="https://github.com/Isaac-Develops/Fetch-Rewards-Exercise-Isaac-Butterfield"><strong>Explore the docs »</strong></a>
     <br />
