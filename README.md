@@ -133,7 +133,7 @@ Installation is pretty simple:
 ## Background
 
 Our users have points in their accounts. Users only see a single balance in their accounts. But for reporting purposes we actually track their
-points per payer/partner. In our system, each transaction record contains: payer (string), points (integer), timestamp (date).
+points per payer/partner. In our system, each transaction record contains: **payer** (string), **points** (integer), **timestamp** (date).
   
 For earning points it is easy to assign a payer, we know which actions earned the points. And thus which partner should be paying for the points.
   
