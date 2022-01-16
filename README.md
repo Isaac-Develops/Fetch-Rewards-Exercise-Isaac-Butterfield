@@ -99,8 +99,6 @@ This is a exercise to create a Points Web Service that:
 <!-- GETTING STARTED -->
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
-
 ### Prerequisites
 
 Make sure you have both npm and Node.js installed. You can check if both are installed using the following commands:
